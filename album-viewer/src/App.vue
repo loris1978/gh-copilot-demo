@@ -1,19 +1,34 @@
 <template>
   <div class="app">
     <header class="header">
-      <h1>🎵 Album Collection</h1>
-      <p>Discover amazing music albums</p>
+      <div class="header-content">
+        <div class="header-text">
+          <h1>🎵 {{ t('header.title') }}</h1>
+          <p>{{ t('header.subtitle') }}</p>
+        </div>
+        <div class="header-right">
+          <div class="language-selector">
+            <label for="language">{{ t('language.select') }}:</label>
+            <select id="language" v-model="locale" @change="changeLanguage">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+            </select>
+          </div>
+          <CartIcon @click="isCartOpen = true" />
+        </div>
+      </div>
     </header>
 
     <main class="main">
       <div v-if="loading" class="loading">
         <div class="spinner"></div>
-        <p>Loading albums...</p>
+        <p>{{ t('loading.message') }}</p>
       </div>
 
       <div v-else-if="error" class="error">
-        <p>{{ error }}</p>
-        <button @click="fetchAlbums" class="retry-btn">Try Again</button>
+        <p>{{ t('error.message') }}</p>
+        <button @click="fetchAlbums" class="retry-btn">{{ t('error.retry') }}</button>
       </div>
 
       <div v-else class="albums-grid">
@@ -24,18 +39,33 @@
         />
       </div>
     </main>
+
+    <CartPanel 
+      :is-open="isCartOpen"
+      @close="isCartOpen = false"
+      @remove-item="removeFromCart"
+      @clear="clearCart"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import axios from 'axios'
 import AlbumCard from './components/AlbumCard.vue'
+import CartIcon from './components/CartIcon.vue'
+import CartPanel from './components/CartPanel.vue'
+import { useCart } from './composables/useCart'
 import type { Album } from './types/album'
+
+const { t, locale } = useI18n()
+const { removeFromCart, clearCart } = useCart()
 
 const albums = ref<Album[]>([])
 const loading = ref<boolean>(true)
 const error = ref<string | null>(null)
+const isCartOpen = ref<boolean>(false)
 
 const fetchAlbums = async (): Promise<void> => {
   try {
@@ -51,7 +81,15 @@ const fetchAlbums = async (): Promise<void> => {
   }
 }
 
+const changeLanguage = (): void => {
+  localStorage.setItem('userLanguage', locale.value)
+}
+
 onMounted(() => {
+  const savedLanguage = localStorage.getItem('userLanguage')
+  if (savedLanguage) {
+    locale.value = savedLanguage
+  }
   fetchAlbums()
 })
 </script>
@@ -68,6 +106,25 @@ onMounted(() => {
   color: white;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.header-text {
+  flex: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .header h1 {
   font-size: 3rem;
   margin-bottom: 0.5rem;
@@ -77,6 +134,45 @@ onMounted(() => {
 .header p {
   font-size: 1.2rem;
   opacity: 0.9;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+}
+
+.language-selector label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.language-selector select {
+  background: rgba(255, 255, 255, 0.95);
+  color: #667eea;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.language-selector select:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.language-selector select:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
 .main {
@@ -147,8 +243,24 @@ onMounted(() => {
     padding: 1rem;
   }
   
+  .header-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .header-right {
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
   .header h1 {
     font-size: 2rem;
+  }
+  
+  .language-selector {
+    width: 100%;
+    justify-content: center;
   }
   
   .albums-grid {
