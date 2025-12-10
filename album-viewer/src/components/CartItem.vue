@@ -13,6 +13,7 @@
     </div>
     <button 
       class="cart-item-remove"
+      data-testid="remove-from-cart"
       @click="$emit('remove')"
       :aria-label="t('cart.remove')"
     >

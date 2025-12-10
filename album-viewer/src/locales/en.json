@@ -22,7 +22,9 @@
     "emptyDescription": "Start adding some albums to your collection!",
     "total": "Total",
     "clear": "Clear Cart",
-    "remove": "Remove"
+    "clearAll": "Clear All",
+    "remove": "Remove",
+    "close": "Close"
   },
   "language": {
     "select": "Language"

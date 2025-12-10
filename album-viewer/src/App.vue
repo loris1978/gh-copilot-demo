@@ -9,13 +9,13 @@
         <div class="header-right">
           <div class="language-selector">
             <label for="language">{{ t('language.select') }}:</label>
-            <select id="language" v-model="locale" @change="changeLanguage">
+            <select id="language" v-model="locale" @change="changeLanguage" data-testid="language-selector">
               <option value="en">English</option>
               <option value="fr">Français</option>
               <option value="de">Deutsch</option>
             </select>
           </div>
-          <CartIcon @click="isCartOpen = true" />
+          <CartIcon :item-count="itemCount" @click="isCartOpen = true" />
         </div>
       </div>
     </header>
@@ -42,6 +42,7 @@
 
     <CartPanel 
       :is-open="isCartOpen"
+      :items="cartItems"
       @close="isCartOpen = false"
       @remove-item="removeFromCart"
       @clear="clearCart"
@@ -60,7 +61,7 @@ import { useCart } from './composables/useCart'
 import type { Album } from './types/album'
 
 const { t, locale } = useI18n()
-const { removeFromCart, clearCart } = useCart()
+const { removeFromCart, clearCart, itemCount, cartItems, loadCart } = useCart()
 
 const albums = ref<Album[]>([])
 const loading = ref<boolean>(true)
@@ -90,6 +91,7 @@ onMounted(() => {
   if (savedLanguage) {
     locale.value = savedLanguage
   }
+  loadCart()
   fetchAlbums()
 })
 </script>

@@ -8,11 +8,12 @@
   </Transition>
 
   <Transition name="cart-panel">
-    <div v-if="isOpen" class="cart-panel">
+    <div v-if="isOpen" class="cart-panel" data-testid="cart-panel">
       <div class="cart-header">
         <h2>{{ t('cart.title') }}</h2>
         <button 
           class="cart-close"
+          data-testid="close-cart"
           @click="$emit('close')"
           :aria-label="t('cart.close')"
         >
@@ -66,11 +67,12 @@
         <div class="cart-footer">
           <div class="cart-total">
             <span class="cart-total-label">{{ t('cart.total') }}:</span>
-            <span class="cart-total-amount">${{ totalPrice.toFixed(2) }}</span>
+            <span class="cart-total-amount" data-testid="cart-total">${{ totalPrice.toFixed(2) }}</span>
           </div>
           <button 
             v-if="items.length > 0"
             class="cart-clear"
+            data-testid="clear-cart"
             @click="$emit('clear')"
           >
             {{ t('cart.clearAll') }}
