@@ -15,7 +15,7 @@
               <option value="de">Deutsch</option>
             </select>
           </div>
-          <CartIcon @click="isCartOpen = true" />
+          <CartIcon :item-count="itemCount" @click="isCartOpen = true" />
         </div>
       </div>
     </header>
@@ -42,6 +42,7 @@
 
     <CartPanel 
       :is-open="isCartOpen"
+      :items="cartItems"
       @close="isCartOpen = false"
       @remove-item="removeFromCart"
       @clear="clearCart"
@@ -60,7 +61,7 @@ import { useCart } from './composables/useCart'
 import type { Album } from './types/album'
 
 const { t, locale } = useI18n()
-const { removeFromCart, clearCart } = useCart()
+const { cartItems, itemCount, removeFromCart, clearCart } = useCart()
 
 const albums = ref<Album[]>([])
 const loading = ref<boolean>(true)

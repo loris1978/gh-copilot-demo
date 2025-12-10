@@ -22,7 +22,9 @@
     "emptyDescription": "Commencez à ajouter des albums à votre collection !",
     "total": "Total",
     "clear": "Vider le panier",
-    "remove": "Retirer"
+    "clearAll": "Tout vider",
+    "remove": "Retirer",
+    "close": "Fermer"
   },
   "language": {
     "select": "Langue"

@@ -22,7 +22,9 @@
     "emptyDescription": "Fügen Sie Ihrer Sammlung einige Alben hinzu!",
     "total": "Gesamt",
     "clear": "Warenkorb leeren",
-    "remove": "Entfernen"
+    "clearAll": "Alles löschen",
+    "remove": "Entfernen",
+    "close": "Schließen"
   },
   "language": {
     "select": "Sprache"
