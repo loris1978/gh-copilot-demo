@@ -26,20 +26,16 @@ const mockAlbum1: Album = {
   id: 1,
   title: 'Test Album 1',
   artist: 'Test Artist 1',
-  year: 2024,
-  genre: 'Rock',
   price: 19.99,
-  coverUrl: 'https://example.com/cover1.jpg'
+  image_url: 'https://example.com/cover1.jpg'
 }
 
 const mockAlbum2: Album = {
   id: 2,
   title: 'Test Album 2',
   artist: 'Test Artist 2',
-  year: 2023,
-  genre: 'Pop',
   price: 24.99,
-  coverUrl: 'https://example.com/cover2.jpg'
+  image_url: 'https://example.com/cover2.jpg'
 }
 
 describe('useCart', () => {
