@@ -14,6 +14,16 @@
     "addToCart": "Add to Cart",
     "preview": "Preview"
   },
+  "cart": {
+    "title": "Shopping Cart",
+    "addToCart": "Add to Cart",
+    "inCart": "In Cart",
+    "empty": "Your cart is empty",
+    "emptyDescription": "Start adding some albums to your collection!",
+    "total": "Total",
+    "clear": "Clear Cart",
+    "remove": "Remove"
+  },
   "language": {
     "select": "Language"
   }

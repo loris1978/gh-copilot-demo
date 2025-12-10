@@ -14,6 +14,16 @@
     "addToCart": "In den Warenkorb",
     "preview": "Vorschau"
   },
+  "cart": {
+    "title": "Warenkorb",
+    "addToCart": "In den Warenkorb",
+    "inCart": "Im Warenkorb",
+    "empty": "Ihr Warenkorb ist leer",
+    "emptyDescription": "Fügen Sie Ihrer Sammlung einige Alben hinzu!",
+    "total": "Gesamt",
+    "clear": "Warenkorb leeren",
+    "remove": "Entfernen"
+  },
   "language": {
     "select": "Sprache"
   }

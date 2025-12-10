@@ -6,13 +6,16 @@
           <h1>🎵 {{ t('header.title') }}</h1>
           <p>{{ t('header.subtitle') }}</p>
         </div>
-        <div class="language-selector">
-          <label for="language">{{ t('language.select') }}:</label>
-          <select id="language" v-model="locale" @change="changeLanguage">
-            <option value="en">English</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-          </select>
+        <div class="header-right">
+          <div class="language-selector">
+            <label for="language">{{ t('language.select') }}:</label>
+            <select id="language" v-model="locale" @change="changeLanguage">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+            </select>
+          </div>
+          <CartIcon @click="isCartOpen = true" />
         </div>
       </div>
     </header>
@@ -36,6 +39,13 @@
         />
       </div>
     </main>
+
+    <CartPanel 
+      :is-open="isCartOpen"
+      @close="isCartOpen = false"
+      @remove-item="removeFromCart"
+      @clear="clearCart"
+    />
   </div>
 </template>
 
@@ -44,13 +54,18 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import axios from 'axios'
 import AlbumCard from './components/AlbumCard.vue'
+import CartIcon from './components/CartIcon.vue'
+import CartPanel from './components/CartPanel.vue'
+import { useCart } from './composables/useCart'
 import type { Album } from './types/album'
 
 const { t, locale } = useI18n()
+const { removeFromCart, clearCart } = useCart()
 
 const albums = ref<Album[]>([])
 const loading = ref<boolean>(true)
 const error = ref<string | null>(null)
+const isCartOpen = ref<boolean>(false)
 
 const fetchAlbums = async (): Promise<void> => {
   try {
@@ -102,6 +117,12 @@ onMounted(() => {
 
 .header-text {
   flex: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .header h1 {
@@ -225,6 +246,12 @@ onMounted(() => {
   .header-content {
     flex-direction: column;
     gap: 1.5rem;
+  }
+
+  .header-right {
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
   }
   
   .header h1 {

@@ -14,6 +14,16 @@
     "addToCart": "Ajouter au panier",
     "preview": "Aperçu"
   },
+  "cart": {
+    "title": "Panier d'Achat",
+    "addToCart": "Ajouter au panier",
+    "inCart": "Dans le panier",
+    "empty": "Votre panier est vide",
+    "emptyDescription": "Commencez à ajouter des albums à votre collection !",
+    "total": "Total",
+    "clear": "Vider le panier",
+    "remove": "Retirer"
+  },
   "language": {
     "select": "Langue"
   }
