@@ -5,6 +5,7 @@ A modern Vue.js 3 application built with TypeScript that displays albums from th
 ## Features
 
 - 🎵 Display album collection in a beautiful grid layout
+- 🌍 **Multi-language support** (English, French, German)
 - 🎨 Modern, responsive design with gradient background
 - 🖼️ Album cover images with hover effects
 - 💰 Price display for each album
@@ -12,6 +13,7 @@ A modern Vue.js 3 application built with TypeScript that displays albums from th
 - ⚡ Built with Vue 3, TypeScript, and Vite
 - 🔧 Full TypeScript support with type safety
 - 📝 Modern Composition API with `<script setup>`
+- 💾 Language preference saved in localStorage
 
 ## Prerequisites
 
@@ -57,23 +59,43 @@ The API should return albums in the following format:
 - `npm run build` - Build for production (with TypeScript compilation)
 - `npm run preview` - Preview production build
 - `npm run type-check` - Run TypeScript type checking without building
+- `npm test` - Run unit tests with Vitest
+
+## Multi-Language Support
+
+The application supports three languages:
+- 🇬🇧 **English** (default)
+- 🇫🇷 **French** (Français)
+- 🇩🇪 **German** (Deutsch)
+
+Users can switch languages using the language selector in the header. The selected language is saved in localStorage and persists across sessions.
+
+For more details on internationalization, see [MULTI_LANGUAGE.md](./MULTI_LANGUAGE.md).
 
 ## Project Structure
 
 ```
 album-viewer/
 ├── src/
+│   ├── __tests__/
+│   │   └── i18n.test.ts     # i18n unit tests
 │   ├── components/
 │   │   └── AlbumCard.vue    # Individual album card component (TypeScript)
+│   ├── locales/
+│   │   ├── en.json          # English translations
+│   │   ├── fr.json          # French translations
+│   │   └── de.json          # German translations
 │   ├── types/
 │   │   └── album.ts         # TypeScript type definitions
 │   ├── App.vue              # Main app component (TypeScript)
+│   ├── i18n.ts              # i18n configuration
 │   └── main.ts              # App entry point (TypeScript)
 ├── index.html               # HTML template
 ├── vite.config.ts           # Vite configuration (TypeScript)
 ├── tsconfig.json            # TypeScript configuration
 ├── tsconfig.app.json        # App-specific TypeScript config
 ├── env.d.ts                 # Environment type declarations
+├── MULTI_LANGUAGE.md        # Multi-language documentation
 └── package.json             # Dependencies and scripts
 ```
 
@@ -81,7 +103,9 @@ album-viewer/
 
 - Vue 3 (Composition API with `<script setup>`)
 - TypeScript (Static type checking and better developer experience)
+- Vue I18n 9 (Internationalization)
 - Vite (Build tool with TypeScript support)
+- Vitest (Unit testing)
 - Axios (HTTP client with TypeScript generics)
 - CSS3 (Grid, Flexbox, Animations)
 
@@ -97,13 +121,20 @@ This application leverages TypeScript for enhanced development experience:
 
 ## Features in Detail
 
+### Multi-Language Support
+- Language selector in the header
+- Support for English, French, and German
+- Instant language switching without page reload
+- Language preference persisted in localStorage
+- Comprehensive test coverage for translations
+
 ### Album Cards
 Each album is displayed in a card with:
 - Album cover image
 - Title and artist information
 - Price display
 - Hover effects with play button overlay
-- Add to Cart and Preview buttons
+- Localized Add to Cart and Preview buttons
 
 ### Responsive Design
 The app adapts to different screen sizes:
